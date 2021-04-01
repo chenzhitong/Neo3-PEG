@@ -10,4 +10,8 @@
     <Exec Command="nscs &quot;$(TargetPath)&quot;" />
   </Target>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\neo\neo-devpack-dotnet\src\Neo.SmartContract.Framework\Neo.SmartContract.Framework.csproj" />
+  </ItemGroup>
+
 </Project>
