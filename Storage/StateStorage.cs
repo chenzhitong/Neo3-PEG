@@ -8,11 +8,11 @@ namespace PEG
 
         public static readonly string key = "state";
 
-        public static void Pause() => Storage.CurrentContext.CreateMap(mapName).Put(key, "pause");
+        public static void Pause() => new StorageMap(Storage.CurrentContext, mapName).Put(key, "pause");
 
-        public static void Resume() => Storage.CurrentContext.CreateMap(mapName).Put(key, "");
+        public static void Resume() => new StorageMap(Storage.CurrentContext, mapName).Put(key, "");
 
-        public static string GetState() => Storage.CurrentContext.CreateMap(mapName).Get(key) == "pause" ? "pause" : "run";
+        public static string GetState() => new StorageMap(Storage.CurrentContext, mapName).Get(key) == "pause" ? "pause" : "run";
 
         public static bool IsPaused() => GetState() == "pause";
     }

@@ -9,11 +9,11 @@ namespace PEG
 
         public static readonly string key = "admin";
 
-        public static void Put(UInt160 account) => Storage.CurrentContext.CreateMap(mapName).Put(key, account);
+        public static void Put(UInt160 account) => new StorageMap(Storage.CurrentContext, mapName).Put(key, account);
 
         public static UInt160 Get()
         {
-            var value = Storage.CurrentContext.CreateMap(mapName).Get(key);
+            var value = new StorageMap(Storage.CurrentContext, mapName).Get(key);
             return value.Length > 0 ? (UInt160)value : PEG.InitialOwnerScriptHash;
         }
     }

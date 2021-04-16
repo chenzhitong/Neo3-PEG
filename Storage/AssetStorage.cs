@@ -19,14 +19,14 @@ namespace PEG
                 Put(key, Get(key) - value);
         }
 
-        public static void Put(UInt160 key, BigInteger value) => Storage.CurrentContext.CreateMap(mapName).Put(key, value);
+        public static void Put(UInt160 key, BigInteger value) => new StorageMap(Storage.CurrentContext, mapName).Put(key, value);
 
         public static BigInteger Get(UInt160 key)
         {
-            var value = Storage.CurrentContext.CreateMap(mapName).Get(key);
+            var value = new StorageMap(Storage.CurrentContext, mapName).Get(key);
             return value.Length > 0 ? (BigInteger)value : 0;
         }
 
-        public static void Remove(UInt160 key) => Storage.CurrentContext.CreateMap(mapName).Delete(key);
+        public static void Remove(UInt160 key) => new StorageMap(Storage.CurrentContext, mapName).Delete(key);
     }
 }

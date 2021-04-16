@@ -13,9 +13,9 @@ namespace PEG
 
         public static void Reduce(BigInteger value) => Put(Get() - value);
 
-        public static void Put(BigInteger value) => Storage.CurrentContext.CreateMap(mapName).Put(key, value);
+        public static void Put(BigInteger value) => new StorageMap(Storage.CurrentContext, mapName).Put(key, value);
 
-        public static BigInteger Get() => (BigInteger)Storage.CurrentContext.CreateMap(mapName).Get(key);
+        public static BigInteger Get() => (BigInteger)new StorageMap(Storage.CurrentContext, mapName).Get(key);
 
     }
 }

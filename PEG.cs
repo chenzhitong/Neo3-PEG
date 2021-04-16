@@ -1,4 +1,5 @@
 ﻿using Neo;
+using Neo.SmartContract;
 using Neo.SmartContract.Framework;
 using Neo.SmartContract.Framework.Native;
 using Neo.SmartContract.Framework.Services;
@@ -28,7 +29,7 @@ namespace PEG
         [DisplayName("adminChanged")]
         public static event Action<UInt160, bool> AdminChanged;
 
-        [InitialValue("NikhQp1aAD1YFCiwknhM5LQQebj4464bCJ", Neo.SmartContract.ContractParameterType.Hash160)]
+        [InitialValue("NikhQp1aAD1YFCiwknhM5LQQebj4464bCJ", ContractParameterType.Hash160)]
         internal static readonly UInt160 InitialOwnerScriptHash = default;
 
         [DisplayName("balanceOf")]

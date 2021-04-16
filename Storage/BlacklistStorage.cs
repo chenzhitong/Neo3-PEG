@@ -11,8 +11,10 @@ namespace PEG
 
         public static bool Initialize()
         {
-            StorageMap storageMap = Storage.CurrentContext.CreateMap(mapName);
+            StorageMap storageMap = new StorageMap(Storage.CurrentContext, mapName);
             var map = storageMap.Get(mapName);
+            var tx = Runtime.ScriptContainer as Transaction;
+            var sender = tx.Sender;
             if (map != null) return false;
             storageMap.Put(mapName, StdLib.Serialize(new Map<UInt160, uint>()));
             return true;
@@ -20,7 +22,7 @@ namespace PEG
 
         public static void Add(UInt160 key, uint value)
         {
-            StorageMap storageMap = Storage.CurrentContext.CreateMap(mapName);
+            StorageMap storageMap = new StorageMap(Storage.CurrentContext, mapName);
             var map = StdLib.Deserialize(storageMap.Get(mapName)) as Map<UInt160, uint>;
 
             map[key] = value;
@@ -30,7 +32,7 @@ namespace PEG
 
         public static void Remove(UInt160 key)
         {
-            StorageMap storageMap = Storage.CurrentContext.CreateMap(mapName);
+            StorageMap storageMap = new StorageMap(Storage.CurrentContext, mapName);
             var map = StdLib.Deserialize(storageMap.Get(mapName)) as Map<UInt160, uint>;
 
             map.Remove(key);
@@ -40,7 +42,7 @@ namespace PEG
 
         public static bool Exist(UInt160 key)
         {
-            StorageMap storageMap = Storage.CurrentContext.CreateMap(mapName);
+            StorageMap storageMap = new StorageMap(Storage.CurrentContext, mapName);
             Map<UInt160, uint> map = StdLib.Deserialize(storageMap.Get(mapName)) as Map<UInt160, uint>;
 
             return map.HasKey(key);

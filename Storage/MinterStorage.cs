@@ -12,7 +12,7 @@ namespace PEG
 
         public static bool Initialize()
         {
-            StorageMap storageMap = Storage.CurrentContext.CreateMap(mapName);
+            StorageMap storageMap = new StorageMap(Storage.CurrentContext, mapName);
             var map = storageMap.Get(mapName);
             if (map != null) return false;
             storageMap.Put(mapName, StdLib.Serialize(new Map<UInt160, BigInteger>()));
@@ -21,7 +21,7 @@ namespace PEG
 
         public static bool Add(UInt160 key, BigInteger value)
         {
-            StorageMap storageMap = Storage.CurrentContext.CreateMap(mapName);
+            StorageMap storageMap = new StorageMap(Storage.CurrentContext, mapName);
             var map = StdLib.Deserialize(storageMap.Get(mapName)) as Map<UInt160, BigInteger>;
 
             map[key] = value;
@@ -33,7 +33,7 @@ namespace PEG
 
         public static BigInteger Get(UInt160 key)
         {
-            StorageMap storageMap = Storage.CurrentContext.CreateMap(mapName);
+            StorageMap storageMap = new StorageMap(Storage.CurrentContext, mapName);
             var map = StdLib.Deserialize(storageMap.Get(mapName)) as Map<UInt160, BigInteger>;
             if (!map.HasKey(key)) return 0;
             return map[key];
@@ -41,7 +41,7 @@ namespace PEG
 
         public static void Remove(UInt160 key)
         {
-            StorageMap storageMap = Storage.CurrentContext.CreateMap(mapName);
+            StorageMap storageMap = new StorageMap(Storage.CurrentContext, mapName);
             var map = StdLib.Deserialize(storageMap.Get(mapName)) as Map<UInt160, BigInteger>;
 
             map.Remove(key);
@@ -55,7 +55,7 @@ namespace PEG
 
         public static bool IncludeWitness()
         {
-            StorageMap storageMap = Storage.CurrentContext.CreateMap(mapName);
+            StorageMap storageMap = new StorageMap(Storage.CurrentContext, mapName);
             var map = StdLib.Deserialize(storageMap.Get(mapName)) as Map<UInt160, BigInteger>;
 
             foreach (var account in map.Keys)
@@ -67,7 +67,7 @@ namespace PEG
 
         public static bool Exist(UInt160 key)
         {
-            StorageMap storageMap = Storage.CurrentContext.CreateMap(mapName);
+            StorageMap storageMap = new StorageMap(Storage.CurrentContext, mapName);
             var map = StdLib.Deserialize(storageMap.Get(mapName)) as Map<UInt160, BigInteger>;
 
             return map.HasKey(key);
